@@ -15,27 +15,38 @@ jobs:
       max-parallel: 4
       matrix:
         python-version: [3.7, 3.8, 3.9]
+        
+    services:
+      postgres_main:
+        image: postgres:latest
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
+        ports:
+          - 5432:5432
     
     steps:
-    - name: Checkout v3
-      uses: actions/checkout@v3
-    - name: test backend
-    - name: Set up Python
-      uses: actions/setup-python@v3
-      with:
-        python-version: ${{ matrix.python-version }}
-    - name: Install dependencies
-      working-directory: ./library_back
-      run: |
-        pwd
-        python3 -m venv env
-        . env/bin/activate
-        pip install -r requirements.txt
-    - name: test backend
-      working-directory: ./library_back
-      run: |
-        pip install pytest
-        pytest tests.py --doctest-modules --junitxml=junit/test-results.xml
-    - name: test frontent
-      run: docker-compose run frontend npm run test
+      - name: checkout repo
+        uses: actions/checkout@v2
+
+      - name: setup python
+        uses: actions/setup-python@v3
+        with:
+           python-version: ${{ matrix.python-version }}
+      - name: install req
+        run: |
+              pip install -r requirements.txt
+      - name: Run tests
+        env:
+            DEBUG: "0"
+            POSTGRES_DB: postgres
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: postgres
+            POSTGRES_HOST: localhost
+            POSTGRES_PORT: 5432
+        run: |
+              python manage.py makemigrations
+              python manage.py migrate
+              python manage.py test
       
