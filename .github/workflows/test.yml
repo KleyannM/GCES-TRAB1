@@ -1,0 +1,21 @@
+name: Test CI
+
+on:
+  workflow_run:
+    workflows: ["Build CI"]
+    types: 
+      - completed
+      
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    name: "test"
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+    - name: Checkout v3
+      uses: actions/checkout@v3
+    - name: test backend
+      run: docker-compose run back python -m pytest accounts books
+    - name: test frontent
+      run: docker-compose run front npm run test
+      
