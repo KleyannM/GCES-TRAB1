@@ -19,7 +19,7 @@ jobs:
         working-directory: ./library_back
     steps:
       - name: checkout repo
-      - uses: actions/checkout@v3
+        uses: actions/checkout@v3
       - name: set up python
         uses: actions/setup-python@v3
         with:
@@ -43,7 +43,7 @@ jobs:
     
     steps:
       - name: checkout repo
-      - uses: actions/checkout@v3
+        uses: actions/checkout@v3
       - name: setup node
         uses: actions/setup-node@v3
         with:
