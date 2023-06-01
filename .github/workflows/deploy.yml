@@ -9,7 +9,7 @@ on:
 
 jobs:
   backend-deploy:
-    name: "deploy backend"
+    name: "build and deploy backend"
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
 
@@ -28,7 +28,7 @@ jobs:
         tags: ${{ secrets.DOCKER_HUB_USERNAME }}/library_back:latest
         push: true
   frontend-deploy:
-    name: "deploy frontend"
+    name: "build and deploy frontend"
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
 
