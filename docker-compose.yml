@@ -1,5 +1,18 @@
 version: "3.7"
 services:
+  nginx:
+    restart: always
+    image: nginx:latest
+    container_name: gces_tpi_nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+      - frontend
+    links:
+      - frontend
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
   frontend:
     build: library_front
     container_name: gces_tpi_front
