@@ -1,5 +1,13 @@
 version: "3.7"
 services:
+  frontend:
+    build: library_front
+    container_name: gces_tpi_front
+    ports:
+      - 3000:3000
+    depends_on:
+      - postgres
+      - backend
   backend:
     build: library_back
     container_name: gces_tpi_back
