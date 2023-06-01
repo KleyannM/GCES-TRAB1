@@ -25,7 +25,7 @@ jobs:
       with:
         context: ./library_back
         file: ./library_back/Dockerfile
-        tags: ${{ secrets.DOCKER_HUB_USERNAME }}/library_back:latest
+        tags: ${{ secrets.DOCKERHUB_USER }}/library_back:latest
         push: true
   frontend-deploy:
     name: "build and deploy frontend"
@@ -44,5 +44,5 @@ jobs:
       with:
         context: ./library_front
         file: ./library_front/Dockerfile
-        tags: ${{ secrets.DOCKER_HUB_USERNAME }}/library_front:latest
+        tags: ${{ secrets.DOCKERHUB_USER }}/library_front:latest
         push: true
