@@ -1,0 +1,11 @@
+version: "3.7"
+services:
+  postgres:
+    build: postgres
+    container_name: gces_tpi_db
+    ports:
+      - 5432:5432
+    volumes:
+      - library-vol:/var/lib/postgresql/data
+volumes:
+  library-vol:
