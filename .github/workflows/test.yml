@@ -7,10 +7,19 @@ on:
       - completed
       
 jobs:
-  tests:
+  tests:  
     runs-on: ubuntu-latest
     name: "test"
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_DB: library_db
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+        ports:
+          - 5432:5432
     steps:
     - name: Checkout v3
       uses: actions/checkout@v3
